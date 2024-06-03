@@ -12,7 +12,7 @@ from langchain_openai import AzureOpenAIEmbeddings
 
 
 def get_secret():
-    secret_name = "trc/azure/openai"
+    secret_name = "sb/openai/genaiapi"
     region_name = "us-east-1"
 
     session = boto3.session.Session()
@@ -49,11 +49,11 @@ def get_secret():
 
 def load_llm():
 
-  text_secret_data = get_secret()
-  json_data = json.loads(text_secret_data)
+  #text_secret_data = get_secret()
+  #json_data = json.loads(text_secret_data)
   # print(json_data["Key1"])
-  os.environ["AZURE_OPENAI_API_KEY"] = json_data["Key1"]
-  os.environ["AZURE_OPENAI_ENDPOINT"] = "https://azrzzzatopenai.openai.azure.com/"
+  os.environ["AZURE_OPENAI_API_KEY"] = "63adc72079f242ad82cdf77acfa89ed7"
+  os.environ["AZURE_OPENAI_ENDPOINT"] = "https://azrzz-genaiapi-sb.openai.azure.com/"
 
   # os.environ["OPENAI_API_VERSION"] = "2023-12-01-preview"
   os.environ["OPENAI_API_VERSION"] = "2023-05-15"
@@ -61,7 +61,7 @@ def load_llm():
 
 
   llm = AzureChatOpenAI(
-      deployment_name="TRC-RFP-GEN-AI",
+      deployment_name="TRC-GENAIAPI-SB-GTP35-TURBO",
       temperature= 1)
   
   return llm
@@ -95,8 +95,8 @@ from openai import AzureOpenAI
 
 def load_openai():
 
-  text_secret_data = get_secret()
-  json_data = json.loads(text_secret_data)
+  #text_secret_data = get_secret()
+  #json_data = json.loads(text_secret_data)
   # print(json_data["Key1"])
   os.environ["AZURE_OPENAI_API_KEY"] = json_data["Key1"]
   os.environ["AZURE_OPENAI_ENDPOINT"] = "https://azrzzzatopenai.openai.azure.com/"
