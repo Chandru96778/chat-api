@@ -32,7 +32,7 @@ def llm_chain():
                     Explain your answer, do not give one line answers.
                     """
         instruction = """
-                    Current conversation:
+                    Our conversation history:
                     {history}
                     TRC_member: {input}
                     TRC_Bot:
@@ -42,6 +42,7 @@ def llm_chain():
 
         prompt = PromptTemplate(input_variables=["history","input"], template= prompt_template)
         
+        #prompt = prompt_template.format(history = history, input = input)
         print(prompt)
         
 

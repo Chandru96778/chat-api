@@ -8,7 +8,7 @@ from langchain_openai import AzureChatOpenAI, AzureOpenAI
 from langchain_openai import AzureOpenAIEmbeddings
 
 
-
+import backoff
 
 
 def get_secret():
@@ -67,25 +67,25 @@ def load_llm():
   return llm
 
 def load_embeddings():
-    text_secret_data = get_secret()
-    json_data = json.loads(text_secret_data)
-    # print(json_data["Key1"])
-    os.environ["AZURE_OPENAI_API_KEY"] = json_data["Key1"]
-    os.environ["AZURE_OPENAI_ENDPOINT"] = "https://azrzzzatopenai.openai.azure.com/"
 
-    # os.environ["OPENAI_API_VERSION"] = "2023-12-01-preview"
-    os.environ["OPENAI_API_VERSION"] = "2023-05-15"
+    # text_secret_data = get_secret()
+    # json_data = json.loads(text_secret_data)
+    # json_data['Key1'] = "1b7c06e3b0b44eb59255c48a445ba61e"
+    # json_data['Key2'] = "74cfd02c0751450f8c020153736b95a6"
 
+    # print(type(json_data["Key1"]))
+    os.environ["AZURE_OPENAI_API_KEY"] = "1b7c06e3b0b44eb59255c48a445ba61e"
+    os.environ["AZURE_OPENAI_ENDPOINT"] = "https://azrzz-trcchat-dev.openai.azure.com/"
 
+    os.environ["OPENAI_API_VERSION"] = "2024-02-01"
+    # os.environ["OPENAI_API_VERSION"] = "2023-05-15"
 
-    
 
     embeddings = AzureOpenAIEmbeddings(
-        azure_deployment="TRC-RFP-GEN-AI-Embedding-ADA",
-        openai_api_version="2023-05-15"
+        azure_deployment="TRC-CHAT-DEV-TEXT-ADA-002",
+        openai_api_version="2024-02-01"
     )
-        
-    
+
     return embeddings
 
 
