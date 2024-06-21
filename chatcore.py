@@ -1,6 +1,7 @@
 from load_gpt import load_embeddings, load_llm
 from langchain.chains.conversation.memory import ConversationBufferWindowMemory
-from langchain.prompts import PromptTemplate
+
+from langchain_core.prompts import PromptTemplate
 
 from load_gpt import load_embeddings, load_llm
 from langchain.chains import ConversationChain
