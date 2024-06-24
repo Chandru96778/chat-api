@@ -1,23 +1,14 @@
 version: 0.2
 
 phases:
-  install:
-    runtime-versions:
-      docker: 18
-    commands:
-      - echo Installing jq...
-      - yum install -y jq
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
       - aws --version
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 905418194353.dkr.ecr.us-east-1.amazonaws.com
-      - REPOSITORY_URI=905418194353.dkr.ecr.us-east-1.amazonaws.com/trc-chat-api
+      - REPOSITORY_URI=905418194353.dkr.ecr.us-east-1.amazonaws.com/trc-gpt-api3
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
-      - echo Fetching Docker registry token...
-      - TOKEN=$(curl -s "https://auth.docker.io/token?service=registry.docker.io&scope=repository:ratelimitpreview/test:pull" | jq -r .token)
-      - echo "Docker token fetched: $TOKEN"
   build:
     commands:
       - echo Build started on `date`
