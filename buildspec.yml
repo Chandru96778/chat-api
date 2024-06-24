@@ -3,15 +3,16 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      docker: 18
+      python: 3.8  # Adjust as per your requirements
     commands:
       - echo Installing jq...
       - yum install -y jq
+
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
       - aws --version
-      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 905418194353.dkr.ecr.us-east-1.amazonaws.com
+      - $(aws ecr get-login --no-include-email --region us-east-1)  # Example for logging into ECR
       - REPOSITORY_URI=905418194353.dkr.ecr.us-east-1.amazonaws.com/trc-chat-api
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
@@ -19,11 +20,13 @@ phases:
       - >
         TOKEN=$(curl -s "https://auth.docker.io/token?service=registry.docker.io&scope=repository:ratelimitpreview/test:pull" | jq -r .token);
         echo "Docker token fetched: $TOKEN"
+
   build:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
       - docker build -t $REPOSITORY_URI:$IMAGE_TAG .
+  
   post_build:
     commands:
       - echo Build completed on `date`
@@ -31,5 +34,6 @@ phases:
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - echo Writing image definitions file...
       - printf '[{"name":"container-name","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+
 artifacts:
   files: imagedefinitions.json
