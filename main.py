@@ -37,6 +37,8 @@ def get_chat_history(chat_id: str, db: Session):
     print(chat)
     return chat
     #return CompletedMessageSchema(id=chat.id, messages=[MessageSchema(sender=msg.sender, content=msg.content) for msg in chat.messages])
+    #return CompletedMessageSchema(id=chat.id, messages=[MessageSchema(sender=msg.sender, content=msg.content) for msg in chat.messages])
+    #return CompletedMessageSchema(id=chat.id, messages=[MessageSchema(sender=msg.sender, content=msg.content) for msg in chat.messages])
 
 @app.get("/")
 def test():
