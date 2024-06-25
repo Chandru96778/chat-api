@@ -6,7 +6,7 @@ from pydantic import BaseModel
 from typing import List
 from uuid import uuid4
 
-db_string = r"z~)#7uUw.Zn}y}#$fp27sGX%aG[s"
+db_string = "9#Y_X4h9f<Tnv:R:a7<SQz[0W:eU"
 
 DATABASE_URL = "postgresql://postgres:"+db_string+"@trcapi.c1e6s6gqgubd.us-east-1.rds.amazonaws.com/apidb"
 
