@@ -1,2 +1,2 @@
 #!/bin/bash
-echo "Validating service"
+set -e
